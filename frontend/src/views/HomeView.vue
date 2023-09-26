@@ -302,3 +302,9 @@
         </form>
     </main>
 </template>
+
+<script setup>
+import sizes from '../mocks/sizes.json'
+import ingredients from '../mocks/ingredients.json'
+import dough from '../mocks/dough.json'
+</script>
