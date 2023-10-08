@@ -74,7 +74,7 @@
               <div class="ingredients__filling">
                 <p>Начинка:</p>
 
-                <ul class="ingredients__list">
+                <ul class="ingredients__list">                                    
                   <li
                     v-for="ingredient in ingredients"
                     :key="ingredient.id"
@@ -102,7 +102,7 @@
                         <span class="visually-hidden">Больше</span>
                       </button>
                     </div>
-                  </li>
+                  </li>                
                 </ul>
               </div>
             </div>
@@ -143,4 +143,15 @@
 import sizes from "../mocks/sizes.json";
 import ingredients from "../mocks/ingredients.json";
 import doughs from "../mocks/dough.json";
+import AppDrop from '@/common/components/AppDrop.vue'
+import AppIcon from '@/common/components/AppDrag.vue'
+
+const props = defineProps({
+  ingredients__item: {
+      type: Object,
+      required: true
+    }
+  })
+
+  defineEmits(['drop'])
 </script>
