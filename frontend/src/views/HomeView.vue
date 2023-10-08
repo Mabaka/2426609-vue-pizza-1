@@ -12,7 +12,7 @@
               <label
                 v-for="(dough, index) in doughs"
                 :key="dough.id"
-                class="dough__input"
+                :class="['dough__input',dough.class]"
               >
                 <input
                   type="radio"
@@ -80,7 +80,7 @@
                     :key="ingredient.id"
                     class="ingredients__item"
                   >                    
-                    <span class="filling">{{ ingredient.name }}</span>                    
+                    <span :class="['filling',ingredient.class]">{{ ingredient.name }}</span>                    
                     <div class="counter counter--orange ingredients__counter">
                       <button
                         type="button"
