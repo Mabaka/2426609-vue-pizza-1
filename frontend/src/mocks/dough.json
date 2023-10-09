@@ -5,7 +5,8 @@
     "image": "dough-light.svg",
     "class": "dough__input--light",
     "description": "Из твердых сортов пшеницы",
-    "price": 300
+    "price": 300,
+    "value": "light"
   },
   {
     "id": 2,
@@ -13,6 +14,7 @@
     "image": "dough-large.svg",
     "class": "dough__input--large",
     "description": "Из твердых сортов пшеницы",
-    "price": 300
+    "price": 300,
+    "value": "large"
   }
 ]

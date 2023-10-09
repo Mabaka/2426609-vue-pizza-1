@@ -17,7 +17,7 @@
                 <input
                   type="radio"
                   name="dought"
-                  :value="dough.id"
+                  :value="dough.value"
                   class="visually-hidden"
                   :checked="index === 0"
                 />
