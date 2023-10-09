@@ -37,11 +37,12 @@
                 v-for="(size, index) in sizes"
                 :key="size.id"
                 class="diameter__input"
+                :class="[`diameter__input--${size.value}`]"
               >
                 <input
                   type="radio"
                   name="diameter"
-                  :value="size.id"
+                  :value="size.value"
                   class="visually-hidden"
                   :checked="index === 1"
                 />
