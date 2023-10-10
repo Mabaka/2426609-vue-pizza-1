@@ -4,52 +4,9 @@
       <div class="content__wrapper">
         <h1 class="title title--big">Конструктор пиццы</h1>
 
-        <div class="content__dough">
-          <div class="sheet">
-            <h2 class="title title--small sheet__title">Выберите тесто</h2>
-
-            <div class="sheet__content dough">
-              <label
-                v-for="(dough, index) in doughs"
-                :key="dough.id"
-                :class="['dough__input',dough.class]"
-              >
-                <input
-                  type="radio"
-                  name="dought"
-                  :value="dough.id"
-                  class="visually-hidden"
-                  :checked="index === 0"
-                />
-                <b>{{ dough.name }}</b>
-                <span>{{ dough.description }}</span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <div class="content__diameter">
-          <div class="sheet">
-            <h2 class="title title--small sheet__title">Выберите размер</h2>
-
-            <div class="sheet__content diameter">
-              <label
-                v-for="(size, index) in sizes"
-                :key="size.id"
-                class="diameter__input"
-              >
-                <input
-                  type="radio"
-                  name="diameter"
-                  :value="size.id"
-                  class="visually-hidden"
-                  :checked="index === 1"
-                />
-                <span>{{ size.name }}</span>
-              </label>
-            </div>
-          </div>
-        </div>
+        <!-- <doughSelector v-model="pizza.dough"/>-->
+        <doughSelector v-model="pizza.dough"/>
+        <diameterSelector v-model="pizza.size"/>
 
         <div class="content__ingredients">
           <div class="sheet">
@@ -58,100 +15,44 @@
             </h2>
 
             <div class="sheet__content ingredients">
-              <div class="ingredients__sauce">
-                <p>Основной соус:</p>
-
-                <label class="radio ingredients__input">
-                  <input type="radio" name="sauce" value="tomato" checked />
-                  <span>Томатный</span>
-                </label>
-                <label class="radio ingredients__input">
-                  <input type="radio" name="sauce" value="creamy" />
-                  <span>Сливочный</span>
-                </label>
-              </div>
-
-              <div class="ingredients__filling">
-                <p>Начинка:</p>
-
-                <ul class="ingredients__list">                                    
-                  <li
-                    v-for="ingredient in ingredients"
-                    :key="ingredient.id"
-                    class="ingredients__item"
-                  >                    
-                    <span :class="['filling',ingredient.class]">{{ ingredient.name }}</span>                    
-                    <div class="counter counter--orange ingredients__counter">
-                      <button
-                        type="button"
-                        class="counter__button counter__button--minus"
-                        disabled
-                      >
-                        <span class="visually-hidden">Меньше</span>
-                      </button>
-                      <input
-                        type="text"
-                        name="counter"
-                        class="counter__input"
-                        value="0"
-                      />
-                      <button
-                        type="button"
-                        class="counter__button counter__button--plus"
-                      >
-                        <span class="visually-hidden">Больше</span>
-                      </button>
-                    </div>
-                  </li>                
-                </ul>
-              </div>
+              <sauceSelector v-model="pizza.sauce"/>
+              <fillingSelector :fillings="pizza.fillings" />              
             </div>
           </div>
         </div>
 
-        <div class="content__pizza">
-          <label class="input">
-            <span class="visually-hidden">Название пиццы</span>
-            <input
-              type="text"
-              name="pizza_name"
-              placeholder="Введите название пиццы"
-            />
-          </label>
-
-          <div class="content__constructor">
-            <div class="pizza pizza--foundation--big-tomato">
-              <div class="pizza__wrapper">
-                <div class="pizza__filling pizza__filling--ananas"></div>
-                <div class="pizza__filling pizza__filling--bacon"></div>
-                <div class="pizza__filling pizza__filling--cheddar"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="content__result">
-            <p>Итого: 0 ₽</p>
-            <button type="button" class="button" disabled>Готовьте!</button>
-          </div>
-        </div>
+        <pizzaComputed v-model="pizza.name" :size="pizza.size" :dough="pizza.dough" :sauce="pizza.sauce" :fillings="pizza.fillings" :total="total" @addI="addI"/>
+        
       </div>
     </form>
   </main>
 </template>
 
 <script setup>
-import sizes from "../mocks/sizes.json";
-import ingredients from "../mocks/ingredients.json";
-import doughs from "../mocks/dough.json";
-import AppDrop from '@/common/components/AppDrop.vue'
-import AppIcon from '@/common/components/AppDrag.vue'
 
-const props = defineProps({
-  ingredients__item: {
-      type: Object,
-      required: true
-    }
-  })
+import doughSelector from "@/modules/constructor/doughSelector.vue"
+import diameterSelector from "@/modules/constructor/diameterSelector.vue"
+import sauceSelector from "@/modules/constructor/sauceSelector.vue"
+import fillingSelector from "@/modules/constructor/fillingSelector.vue"
+import pizzaComputed from "@/modules/constructor/pizzaComputed.vue"
 
-  defineEmits(['drop'])
+import { reactive, computed } from "vue";
+import sizes from "@/mocks/sizes.json";
+import doughs from "@/mocks/dough.json";
+import ingredients from "@/mocks/ingredients.json";
+
+const pizza = reactive({
+  name:"",
+  size: sizes[0].value,
+  dough: doughs[0].value,
+  sauce: "tomato",
+  fillings: []
+});
+
+const total = 0;
+
+const addI = (ingredient)=> {            
+    pizza.fillings.push(ingredient);
+}
+
 </script>
