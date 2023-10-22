@@ -25,7 +25,7 @@
     import sizes from "@/mocks/sizes.json";
     defineProps({
         modelValue:{
-            type: String,
+            type: Object,
             required: true
         }
     })

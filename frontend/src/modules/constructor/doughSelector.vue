@@ -12,6 +12,7 @@
                     name="dought"
                     :value="dough.value"
                     class="visually-hidden"
+                    @click="emits('selectDough',dough)"
                     :checked="index === 0" 
                 />
 
@@ -27,10 +28,10 @@
 
     defineProps({
         modelValue:{
-            type:String,
+            type:Object,
             required:true
         }
     })
 
-    const emit = defineEmits(["update:modelValue"]);
+    const emits = defineEmits(["selectDough","update:modelValue"]);
 </script>

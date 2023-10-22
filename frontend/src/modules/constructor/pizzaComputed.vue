@@ -6,12 +6,13 @@
                 type="text"
                 name="pizza_name"
                 placeholder="Введите название пиццы"
+                :value="name"
             />         
         </label>  
         <AppDrop @drop="emits('addI', $event)">          
             
             <div class="content__constructor">
-                <div class="pizza" :class="`pizza--foundation--${size}-${sauce}`">
+                <div class="pizza" :class="`pizza--foundation--${dough.value}-${sauce.value}`">
                     <div class="pizza__wrapper">
                                                 
                         <div v-for="(filling) in props.fillings"
@@ -34,20 +35,22 @@
 </template>
 
 <script setup>
-    import {computed} from "vue";
     import AppDrop from "@/common/components/AppDrop.vue";
 
     const props = defineProps({
+        name:{
+            type:String
+        },
         sauce:{
-            type:String,
+            type:Object,
             required: true
         },
         dough:{
-            type:String,
+            type:Object,
             required: true
         },
         size:{
-            type:String,
+            type:Object,
             required:true
         },
         fillings:{
@@ -61,6 +64,5 @@
     })
 
     const emits = defineEmits(['addI', "update:modelValue"]);
-        
     
 </script>
