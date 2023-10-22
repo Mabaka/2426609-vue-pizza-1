@@ -55,13 +55,16 @@ const total = ref(
   pizza.dough.price + pizza.sauce.price
 );
 
-const addI = (ingredient)=> {        
+const addI = (ingredient)=> {     
+    console.log(ingredient);   
     total.value = total.value + ingredient.price;   
     pizza.fillings.push(ingredient);
 }
 
 const remI = (ingredient)=>{
-  const index = pizza.fillings.indexOf(ingredient);
+
+  const el_fromarray_by_name = pizza.fillings.find((element)=>element.name == ingredient.name);
+  const index = pizza.fillings.indexOf(el_fromarray_by_name);
   if(index !== -1){
     total.value = total.value - ingredient.price;
     pizza.fillings.splice(index,1);
