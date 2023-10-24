@@ -15,7 +15,8 @@
                     <button
                         type="button"
                         class="counter__button counter__button--minus"
-                        disabled
+                        @click="emits('remI',ingredient)"
+                        :disabled="!fillings.filter((value)=>{return value.name == ingredient.name}).length > 0"
                     >
                         <span class="visually-hidden">Меньше</span>
                     </button>    
@@ -23,11 +24,12 @@
                         type="text"
                         name="counter"
                         class="counter__input"
-                        value="0"
+                        :value="fillings.filter((value)=>{return value.name == ingredient.name}).length"
                     />  
                     <button
                         type="button"
                         class="counter__button counter__button--plus"
+                        @click="emits('addI',ingredient)"
                     >
                     <span class="visually-hidden">Больше</span>
                     </button>  
@@ -45,6 +47,9 @@
         fillings: {
         type: Array,
         required: true,
-    }        
+    },        
   });  
+
+  const emits = defineEmits(['addI', 'remI' ,"update:modelValue"]);
+  
 </script>

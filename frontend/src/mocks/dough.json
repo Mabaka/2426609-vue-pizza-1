@@ -6,7 +6,7 @@
     "class": "dough__input--light",
     "description": "Из твердых сортов пшеницы",
     "price": 300,
-    "value": "light"
+    "value": "small"
   },
   {
     "id": 2,
@@ -15,6 +15,6 @@
     "class": "dough__input--large",
     "description": "Из твердых сортов пшеницы",
     "price": 300,
-    "value": "large"
+    "value": "big"
   }
 ]
