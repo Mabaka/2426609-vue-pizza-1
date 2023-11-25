@@ -3,9 +3,7 @@
     <form action="#" method="post">
       <div class="content__wrapper">
         <SectionTitle size="big">Конструктор пиццы</SectionTitle>
-        <DoughComp
-          v-model="pizza.dough"
-          :normalized-doughs="normalizedDoughs"
+        <DoughComp v-model="pizza.dough" :normalized-doughs="normalizedDoughs"
         />
 
         <SizeComp v-model="pizza.size" :normalized-sizes="normalizedSizes" />
@@ -13,25 +11,16 @@
         <div class="content__ingredients">
           <SheetCard class="ingredients">
             <template #title>Выберите ингредиенты</template>
-            <SauceComp
-              v-model="pizza.sauce"
-              :normalized-sauces="normalizedSauces"
+            <SauceComp v-model="pizza.sauce" :normalized-sauces="normalizedSauces"
             />
             <IngredientsComp
-              :normalized-ingredients="normalizedIngredients"
-              :selected-ingredients="pizza.ingredients"
-              @upgradeIngredientAmount="upgradeIngredientAmount"
+              :normalized-ingredients="normalizedIngredients" :selected-ingredients="pizza.ingredients" @upgradeIngredientAmount="upgradeIngredientAmount"
             />
           </SheetCard>
         </div>
 
         <PizzaComp
-          v-model="pizza.name"
-          :sauce="pizza.sauce"
-          :dough="pizza.dough"
-          :ingredients="pizza.ingredients"
-          :price="price"
-          @addIngredient="addIngredient"
+          v-model="pizza.name" :sauce="pizza.sauce" :dough="pizza.dough" :ingredients="pizza.ingredients" :price="price" @addIngredient="addIngredient"
         />
       </div>
     </form>
@@ -57,7 +46,6 @@ const normalizedSauces = sauces.map((sauce) => normalizeSauces(sauce));
 const normalizedDoughs = doughs.map((dough) => normalizeDough(dough));
 
 const normalizedIngredients = ingredients.map((ingredient) =>
-
   normalizeIngredients(ingredient)
 );
 
@@ -66,11 +54,7 @@ const pizza = reactive({
   size: normalizedSizes[0].size,
   dough: normalizedDoughs[0].doughSize,
   sauce: normalizedSauces[0].sauce,
-  ingredients: normalizedIngredients.reduce((acc, item) => {
-    acc[item.ingredient] = 0;
-    return acc;
-  }, {}),
-});
+  ingredients: normalizedIngredients.reduce((acc, item) => { acc[item.ingredient] = 0; return acc;}, {}),});
 
 const price = computed(() => {
   const { dough, size, sauce, ingredients } = pizza;
