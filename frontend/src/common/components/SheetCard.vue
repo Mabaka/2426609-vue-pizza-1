@@ -1,6 +1,8 @@
 <template>
   <div class="sheet">
-    <SectionTitle class="sheet__title"><slot name="title" /></SectionTitle>
+    <SectionTitle class="sheet__title">
+      <slot name="title" />
+    </SectionTitle>
     <div class="sheet__content">
       <slot />
     </div>
