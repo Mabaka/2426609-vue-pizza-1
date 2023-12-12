@@ -3,6 +3,7 @@
     <button
       type="button"
       class="counter__button counter__button--minus"      
+      :disabled="count===0"
       @click="emits('decrement')"
     >
       <span class="visually-hidden">Меньше</span>
@@ -12,6 +13,7 @@
       type="button"
       class="counter__button counter__button--plus"
       :class="orange === true && 'counter__button--orange'"      
+      :disabled="count===3"
       @click="emits('increment')"
     >
       <span class="visually-hidden">Больше</span>
