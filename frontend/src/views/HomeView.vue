@@ -14,7 +14,7 @@
             <SauceComp v-model="pizza.sauce" :normalized-sauces="normalizedSauces"
             />
             <IngredientsComp
-              :normalized-ingredients="normalizedIngredients" :selected-ingredients="pizza.ingredients" @upgradeIngredientAmount="upgradeIngredientAmount"
+              :normalized-ingredients="normalizedIngredients" :selected-ingredients="pizza.ingredients" @upgradeIngredientCount="upgradeIngredientCount"
             />
           </SheetCard>
         </div>
@@ -78,7 +78,7 @@ const addIngredient = (ingredient) => {
   pizza.ingredients[ingredient]++;
 };
 
-const upgradeIngredientAmount = (ingredient, count) => {
+const upgradeIngredientCount = (ingredient, count) => {
   pizza.ingredients[ingredient] = count;
 };
 </script>

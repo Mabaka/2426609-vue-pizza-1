@@ -52,18 +52,18 @@ const props = defineProps({
   },
 });
 
-const emits = defineEmits(["upgradeIngredientAmount"]);
+const emits = defineEmits(["upgradeIngredientCount"]);
 
 const getValue = (ingredient) => {
   return props.selectedIngredients[ingredient];
 };
 
 const decrement = (ingredient, count) => {
-  emits("upgradeIngredientAmount", ingredient, count);
+  emits("upgradeIngredientCount", ingredient, count);
 };
 
 const increment = (ingredient, count) => {
-  emits("upgradeIngredientAmount", ingredient, count);
+  emits("upgradeIngredientCount", ingredient, count);
 };
 </script>
 
