@@ -7,6 +7,13 @@ export default [
       children: [],
     },
     {
+      path: "/:id",
+      name: "EditPizza",
+      component: () => import("../views/HomeView.vue"),
+      meta: { layout: "AppLayoutHeader" },
+      children: [],
+    },
+    {
       path: "/sign-in",
       name: "LoginView",
       component: () => import("../views/LoginView.vue"),

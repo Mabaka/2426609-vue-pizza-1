@@ -16,7 +16,7 @@ import {
 export const DataStore = defineStore('data', {
   state: () => ({
     ingredients: ingredients.map((ingredient) => normalizeIngredients(ingredient)),
-    misc: miscs,  
+    misc: miscs, 
     sauce: sauces.map((sauce) => normalizeSauces(sauce)),
     dough: doughs.map((dough) => normalizeDough(dough)),        
     sizes: sizes.map((size) => normalizeSizes(size))

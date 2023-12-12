@@ -10,7 +10,7 @@
       >
         <AppDrag
           :transfer-data="ingredient"
-          :draggable="getValue(ingredient.ingredient) < 3"
+          :draggable="getValue(ingredient.id) < 3"
         >
           <span class="filling" :class="`filling--${ingredient.ingredient}`">{{
             ingredient.name
@@ -20,17 +20,27 @@
         <AppCounter
           class="ingredients__counter"
           :ingredient="ingredient.ingredient"
-          :count="getValue(ingredient.ingredient)"
+          :count="getValue(ingredient.id)"
           @decrement="
             decrement(
-              ingredient.ingredient,
-              getValue(ingredient.ingredient) - 1
+              {
+                id: ingredient.id,
+                ingredient: ingredient.ingredient,
+                name: ingredient.name,
+                price: ingredient.price,
+              },
+              getValue(ingredient.id) - 1
             )
           "
           @increment="
             increment(
-              ingredient.ingredient,
-              getValue(ingredient.ingredient) + 1
+              {
+                id: ingredient.id,
+                ingredient: ingredient.ingredient,
+                name: ingredient.name,
+                price: ingredient.price,
+              },
+              getValue(ingredient.id) + 1
             )
           "
         />
@@ -43,19 +53,25 @@
 import { AppCounter, AppDrag } from "../../common/components";
 const props = defineProps({
   normalizedIngredients: {
-    type: Object,
+    type: Array,
     required: true,
   },
   selectedIngredients: {
-    type: Object,
+    type: Array,
     required: true,
   },
 });
 
 const emits = defineEmits(["upgradeIngredientCount"]);
 
-const getValue = (ingredient) => {
-  return props.selectedIngredients[ingredient];
+const getValue = (id) => {
+  const have =
+    props.selectedIngredients.find((item) => item?.id === id) ?? -1;
+  if (have === -1) {
+    return 0;
+  } else {
+    return have.quantity;
+  }
 };
 
 const decrement = (ingredient, count) => {
@@ -63,6 +79,7 @@ const decrement = (ingredient, count) => {
 };
 
 const increment = (ingredient, count) => {
+  console.log(ingredient.id);  
   emits("upgradeIngredientCount", ingredient, count);
 };
 </script>

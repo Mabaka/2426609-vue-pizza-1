@@ -28,39 +28,39 @@ export const CartStore = defineStore('cart', {
 	},
 	actions: {
         pizza_add(pizza){
-            const have = state.pizzas.find((item)=>item.id===pizza.id);
+            const have = this.pizzas.find((item)=>item.id===pizza.id);
             if(have){
                 have.quantity = have.quantity + 1;
             }else{
-                state.pizzas.push({...pizza,quantity: 1});
+                this.pizzas.push({...pizza,quantity: 1});
             }
         },
         pizza_edit(created_pizza){
-            const index = state.pizzas.findIndex((pizza)=>pizza.id===created_pizza.id);
+            const index = this.pizzas.findIndex((pizza)=>pizza.id===created_pizza.id);
             this.pizzas.splice(index,1,created_pizza);
         },
         pizza_drop(id){
-            const have = state.pizzas.find((item)=>item.id===pizza.id);
+            const have = this.pizzas.find((item)=>item.id===pizza.id);
             if(have.quantity===1){
-                state.pizzas = state.pizzas.filter((pizza)=>pizza.id !==id);
+                this.pizzas = this.pizzas.filter((pizza)=>pizza.id !==id);
             }else{
                 have.quantity = have.quantity - 1;
             }
         },
         misc_add(misc_created) {
-			const have = state.misc.find((item) => item.id === misc_created.id);
+			const have = this.misc.find((item) => item.id === misc_created.id);
 
 			if (have) {
 				have.quantity = have.quantity + 1;
 			} else {
-				state.misc.push({ ...misc_created, quantity: 1 });
+				this.misc.push({ ...misc_created, quantity: 1 });
 			}
 		},
 		misc_drop(id) {
 			
-			const have = state.misc.find((item) => item.id === pizza.id);
+			const have = this.misc.find((item) => item.id === pizza.id);
 			if (have.quantity === 1)
-				state.misc = state.misc.filter((pizza) => pizza.id !== id);
+                this.misc = this.misc.filter((pizza) => pizza.id !== id);
 			else 
 				have.quantity = have.quantity - 1;
 		},

@@ -13,8 +13,14 @@
           name="diameter"
           :value="size.size"
           class="visually-hidden"
-          :checked="size.size === modelValue"
-          @input="emit('update:modelValue', $event.target.value)"
+          :checked="size.size === modelValue.size"
+          @input="
+            emit('update:modelValue', {
+              ...size,
+              size: $event.target.value,
+              multiplier: size.multiplier,
+            })
+          "
         />
         <span>{{ size.name }}</span>
       </label>
@@ -27,7 +33,7 @@ import { SheetCard } from "../../common/components";
 defineProps({
   normalizedSizes: { type: Object, required: true },
   modelValue: {
-    type: String,
+    type: Object,
     required: true,
   },
 });
