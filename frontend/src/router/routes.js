@@ -24,7 +24,7 @@ export default [
       path: "/user",
       name: "UserView",
       component: () => import("../views/UserView.vue"),
-      meta: { layout: "AppLayoutUser" },
+      meta: { layout: "AppLayoutUsr" },
       children: [
         {
           path: "profile",

@@ -36,10 +36,8 @@ import sizes from "../mocks/sizes.json";
 
 import {normalizeDough,normalizeSizes,normalizeIngredients,normalizeSauces,} from "../common/helpers";
 
-import {  SheetCard,SectionTitle,} from "../common/components";
-
+import {SheetCard,SectionTitle,} from "../common/components";
 import {DoughComp,SizeComp,SauceComp,IngredientsComp,PizzaComp,} from "../modules/constructor";
-
 
 const normalizedSizes = sizes.map((size) => normalizeSizes(size));
 const normalizedSauces = sauces.map((sauce) => normalizeSauces(sauce));
