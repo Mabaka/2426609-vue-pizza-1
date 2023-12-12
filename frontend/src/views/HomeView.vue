@@ -2,85 +2,87 @@
   <main class="content">
     <form action="#" method="post">
       <div class="content__wrapper">
-        <h1 class="title title--big">Конструктор пиццы</h1>
+        <SectionTitle size="big">Конструктор пиццы</SectionTitle>
+        <DoughComp v-model="pizza.dough" :normalized-doughs="normalizedDoughs"
+        />
 
-        <!-- <doughSelector v-model="pizza.dough"/>-->
-        <doughSelector v-model="pizza.dough" @selectDough="selectDough"/>
-        <diameterSelector v-model="pizza.size"/>
+        <SizeComp v-model="pizza.size" :normalized-sizes="normalizedSizes" />
 
         <div class="content__ingredients">
-          <div class="sheet">
-            <h2 class="title title--small sheet__title">
-              Выберите ингредиенты
-            </h2>
-
-            <div class="sheet__content ingredients">
-              <sauceSelector v-model="pizza.sauce" @selectSauce="selectSauce"/>
-              <fillingSelector :fillings="pizza.fillings" @addI="addI" @remI="remI" />              
-            </div>
-          </div>
+          <SheetCard class="ingredients">
+            <template #title>Выберите ингредиенты</template>
+            <SauceComp v-model="pizza.sauce" :normalized-sauces="normalizedSauces"
+            />
+            <IngredientsComp
+              :normalized-ingredients="normalizedIngredients" :selected-ingredients="pizza.ingredients" @upgradeIngredientAmount="upgradeIngredientAmount"
+            />
+          </SheetCard>
         </div>
 
-        <pizzaComputed v-model="pizza.name" :size="pizza.size" :dough="pizza.dough" :sauce="pizza.sauce" :fillings="pizza.fillings" :total="total" :name="pizza.name" @addI="addI"/>
-        
+        <PizzaComp
+          v-model="pizza.name" :sauce="pizza.sauce" :dough="pizza.dough" :ingredients="pizza.ingredients" :price="price" @addIngredient="addIngredient"
+        />
       </div>
     </form>
   </main>
 </template>
 
 <script setup>
+import { reactive, computed } from "vue";
+import doughs from "../mocks/dough.json";
+import ingredients from "../mocks/ingredients.json";
+import sauces from "../mocks/sauces.json";
+import sizes from "../mocks/sizes.json";
 
-import doughSelector from "@/modules/constructor/doughSelector.vue"
-import diameterSelector from "@/modules/constructor/diameterSelector.vue"
-import sauceSelector from "@/modules/constructor/sauceSelector.vue"
-import fillingSelector from "@/modules/constructor/fillingSelector.vue"
-import pizzaComputed from "@/modules/constructor/pizzaComputed.vue"
+import {normalizeDough,normalizeSizes,normalizeIngredients,normalizeSauces,} from "../common/helpers";
 
-import { reactive , ref} from "vue";
-import sizes from "@/mocks/sizes.json";
-import doughs from "@/mocks/dough.json";
-import sauces from "@/mocks/sauces.json";
+import {  SheetCard,SectionTitle,} from "../common/components";
 
-const name_pizza = ref('Пицца')
+import {DoughComp,SizeComp,SauceComp,IngredientsComp,PizzaComp,} from "../modules/constructor";
 
-const pizza = reactive({
-  name:name_pizza.value,
-  size: sizes[0],
-  dough: doughs[0],
-  sauce: sauces[0],
-  fillings: []
-});
 
-const total = ref(
-  pizza.dough.price + pizza.sauce.price
+const normalizedSizes = sizes.map((size) => normalizeSizes(size));
+const normalizedSauces = sauces.map((sauce) => normalizeSauces(sauce));
+const normalizedDoughs = doughs.map((dough) => normalizeDough(dough));
+
+const normalizedIngredients = ingredients.map((ingredient) =>
+  normalizeIngredients(ingredient)
 );
 
-const addI = (ingredient)=> {     
-    console.log(ingredient);   
-    total.value = total.value + ingredient.price;   
-    pizza.fillings.push(ingredient);
-}
+const pizza = reactive({
+  name: "",
+  size: normalizedSizes[0].size,
+  dough: normalizedDoughs[0].doughSize,
+  sauce: normalizedSauces[0].sauce,
+  ingredients: normalizedIngredients.reduce((acc, item) => { acc[item.ingredient] = 0; return acc;}, {}),});
 
-const remI = (ingredient)=>{
+const price = computed(() => {
+  const { dough, size, sauce, ingredients } = pizza;
 
-  const el_fromarray_by_name = pizza.fillings.find((element)=>element.name == ingredient.name);
-  const index = pizza.fillings.indexOf(el_fromarray_by_name);
-  if(index !== -1){
-    total.value = total.value - ingredient.price;
-    pizza.fillings.splice(index,1);
-  }
-}
+  const sizeMult =
+    normalizedSizes.find((item) => item.size === size)?.multiplier ?? 1;
 
-const selectDough = (dough)=>{
-  total.value = total.value - pizza.dough.price;
-  pizza.dough = dough;
-  total.value = total.value + dough.price;
-}
+  const doughPrice =
+    normalizedDoughs.find((item) => item.doughSize === dough)?.price ?? 0;
 
-const selectSauce = (sauce)=>{
-  total.value = total.value - pizza.sauce.price;
-  pizza.sauce = sauce;
-  total.value = total.value + sauce.price;
-}
+  const saucePrice =
+    normalizedSauces.find((item) => item.sauce === sauce)?.price ?? 0;
 
+  const ingredientsPrice = normalizedIngredients
+    .map((item) => ingredients[item.ingredient] * item.price)
+    .reduce((acc, item) => acc + item, 0);
+  return (doughPrice + saucePrice + ingredientsPrice) * sizeMult;
+});
+
+const addIngredient = (ingredient) => {
+  pizza.ingredients[ingredient]++;
+};
+
+const upgradeIngredientAmount = (ingredient, count) => {
+  pizza.ingredients[ingredient] = count;
+};
 </script>
+
+<style lang="scss" scoped>
+@import "@/assets/scss/app.scss";
+</style>
