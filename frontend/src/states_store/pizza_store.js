@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 export const PizzaStore = defineStore('pizza', {
     state: () => ({
         id: 0,
-        name: "Test",
+        name: "",
         dough: {},
         size: {},
         sauce: {},
@@ -11,10 +11,16 @@ export const PizzaStore = defineStore('pizza', {
     }),
     getters: {
         fullPizzaPrice: (state) => {
-            const ingredientsFullPrice = state.ingredients.reduce((sum, ingredient) => sum + ingredient.price, 0);
+            const ingredientsTotalPrice = state.ingredients.reduce(
+              (sum, ingredient) => sum + ingredient.price * ingredient.quantity,
+              0
+            );
+      
             const mlt = state.size.multiplier;
-            return (mlt * (state.sauce.price + state.dough.price + ingredientsFullPrice));
-        },
+            return (
+                mlt * (state.sauce.price + state.dough.price + ingredientsTotalPrice)
+            );
+          },
         getDough: (state) => {
             return state.dough;
         },
@@ -35,17 +41,16 @@ export const PizzaStore = defineStore('pizza', {
               size: state.size,
               sauce: state.sauce,
               ingredients: state.ingredients,
-              price: state.totalPizzaPrice,
+              price: state.fullPizzaPrice,
               ingredientsString: state.getIngredientsString,
             };
           },
     },
     actions: {
-        ing_add(ing_created) {            
-            console.log(this.name);
-            const have = this.ingredients.find((item) => item.id === ing_created.id);
+        ing_add(ing_created) {                                    
+            const have = this.ingredients.find((item) => item.id === ing_created.id);            
             if (have) {
-                have.quantity += 1;
+                have.quantity += 1;                                
             } else {
                 this.ingredients.push({ ...ing_created, quantity: 1 });
             }
@@ -57,8 +62,7 @@ export const PizzaStore = defineStore('pizza', {
             this.dough = pizza.dough;
             this.size = pizza.size;
             this.sauce = pizza.sauce;
-            this.ingredients = pizza.ingredients;
-            console.log(this.ingredients);            
+            this.ingredients = pizza.ingredients;            
         },
         upgradeIngredientCount(ingredient, count) {            
             const have =

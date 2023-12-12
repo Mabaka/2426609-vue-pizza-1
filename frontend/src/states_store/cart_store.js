@@ -8,8 +8,9 @@ export const CartStore = defineStore('cart', {
 		misc: []
 	}),
 	getters: {
-		fullCartPrice: (state) => {
+		fullCartPrice: (state) => {            
 			const pizzaPrice = state.pizzas.reduce((sum, pizza) => sum + pizza.price, 0);
+            console.log(state.misc[0]);
 			const miscPrice = state.misc.reduce((sum, el) => sum + el.price, 0);
 			return pizzaPrice + miscPrice;
 		},
@@ -40,7 +41,7 @@ export const CartStore = defineStore('cart', {
             this.pizzas.splice(index,1,created_pizza);
         },
         pizza_drop(id){
-            const have = this.pizzas.find((item)=>item.id===pizza.id);
+            const have = this.pizzas.find((item)=>item.id===id);
             if(have.quantity===1){
                 this.pizzas = this.pizzas.filter((pizza)=>pizza.id !==id);
             }else{
@@ -48,8 +49,7 @@ export const CartStore = defineStore('cart', {
             }
         },
         misc_add(misc_created) {
-			const have = this.misc.find((item) => item.id === misc_created.id);
-
+			const have = this.misc.find((item) => item.id === misc_created.id);            
 			if (have) {
 				have.quantity = have.quantity + 1;
 			} else {
