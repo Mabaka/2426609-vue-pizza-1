@@ -1,7 +1,13 @@
 import { defineStore } from 'pinia'
 
 export const DataStore = defineStore('data', {
-	state: () => ({}),
+	state: () => ({
+		dough:[],
+        ingredients:[],
+        misc:[],
+        sauce:[],
+        sizes:[]
+	}),
 	getters: {},
 	actions: {}
 })
