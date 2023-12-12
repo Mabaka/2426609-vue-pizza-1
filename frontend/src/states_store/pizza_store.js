@@ -29,5 +29,14 @@ export const PizzaStore = defineStore('pizza', {
 			return state.ingredients;
 		}
 	},
-	actions: {}
+	actions: {
+        ing_add(ing_created) {
+			const have = state.ingredients.find((item) => item.id === ing_created.id);
+			if (have) {
+				have.quantity += 1;
+			} else {
+				state.ingredients.push({ ...ing_created, quantity: 1 });
+			}
+		},
+    }
 })
