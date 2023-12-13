@@ -5,7 +5,32 @@ export const CartStore = defineStore('cart', {
 		phone: "",
 		address: {},
 		pizzas: [],
-		misc: []
+		misc: [
+			{
+			  id: 0,
+			  name: "Coca-Cola 0,5 литра",
+			  cost: "x 56 ₽",
+			  src: "/src/assets/img/cola.svg",
+			  price: 56,
+			  quantity: 0,
+			},
+			{
+			  id: 1,
+			  name: "Острый соус",
+			  cost: "x 30 ₽",
+			  src: "/src/assets/img/sauce.svg",
+			  price: 30,
+			  quantity: 0,
+			},
+			{
+			  id: 2,
+			  name: "Картошка из печи",
+			  cost: "x 56 ₽",
+			  src: "/src/assets/img/potato.svg",
+			  price: 56,
+			  quantity: 0,
+			},
+		  ]
 	}),
 	getters: {
 		fullCartPrice: (state) => {
@@ -60,12 +85,8 @@ export const CartStore = defineStore('cart', {
 			}
 		},
 		misc_drop(id) {
-
-			const have = this.misc.find((item) => item.id === pizza.id);
-			if (have.quantity === 1)
-				this.misc = this.misc.filter((pizza) => pizza.id !== id);
-			else
-				have.quantity = have.quantity - 1;
+			const have = this.misc.find((item) => item.id === id);
+			have.quantity = have.quantity - 1;				
 		},
 		clean() {
 			this.pizzas = [];

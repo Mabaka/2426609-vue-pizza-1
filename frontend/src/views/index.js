@@ -1,3 +1,4 @@
+export { default as SuccessView } from "./SuccessView.vue";
 export { default as HomeView } from "./HomeView.vue";
 export { default as CartView } from "./CartView.vue";
 export { default as LoginView } from "./LoginView.vue";
