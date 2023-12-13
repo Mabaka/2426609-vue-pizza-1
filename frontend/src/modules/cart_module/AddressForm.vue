@@ -4,7 +4,7 @@
             <label class="cart-form__select">
                 <span class="cart-form__label">Получение заказа:</span>
 
-                <select name="test" class="select" @input="emit('setAddressOption', $event.target.value)">
+                <select name="type_order_get" class="select" @input="emit('setAddressOption', $event.target.value)">
                     <option v-for="(option, index) in options" :key="option" :value="index">
                         {{ option }}
                     </option>
@@ -16,7 +16,7 @@
                 <input type="text" name="tel" placeholder="+7 999-999-99-99" />
             </label>
 
-            <div v-if="addressOption > 0" class="cart-form__address">
+            <div v-if="addressOption > 0 " class="cart-form__address">
                 <span class="cart-form__label">Новый адрес:</span>
 
                 <div class="cart-form__input">

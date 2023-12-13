@@ -33,6 +33,11 @@ export const PizzaStore = defineStore('pizza', {
         getIngredients: (state) => {
             return state.ingredients;
         },
+        getIngredientsStr: (state) => {
+            return state.ingredients
+              .map((ingredient) => ingredient.name.toLowerCase())
+              .join(", ");
+          },
         getPizzaInfo: (state) => {
             return {
               id: state.id,
@@ -42,7 +47,7 @@ export const PizzaStore = defineStore('pizza', {
               sauce: state.sauce,
               ingredients: state.ingredients,
               price: state.fullPizzaPrice,
-              ingredientsString: state.getIngredientsString,
+              ingredientsStr: state.getIngredientsStr,
             };
           },
     },

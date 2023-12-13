@@ -44,7 +44,7 @@ if (id){
 }
 else{
   pizza_store.pizzaState_set({
-    id: Math.random(),
+    id: Math.floor(Math.random() * 100) + 1,
     name: "",
     dough: data_store.dough[0],
     size: data_store.sizes[0],

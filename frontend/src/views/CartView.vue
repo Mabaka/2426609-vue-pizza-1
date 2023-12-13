@@ -9,10 +9,10 @@
                 <div v-if="!cart_store.getPizzas.length" class="sheet cart__empty">
                     <p>В корзине нет ни одного товара</p>
                 </div>
-                <PizzaList v-else :pizzas="cart_store.getPizzas" @addPizza="cart_store.pizza_add"
+                <Pizza v-else :pizzas="cart_store.getPizzas" @addPizza="cart_store.pizza_add"
                     @deletePizza="cart_store.pizza_drop" />
 
-                <MiscList :miscs="cart_store.getMisc" @addMisc="cart_store.misc_add" @deleteMisc="cart_store.misc_drop" />
+                <Misc :miscs="cart_store.getMisc" @addMisc="cart_store.misc_add" @deleteMisc="cart_store.misc_drop" />
 
                 <AddressForm :options="selectList" :address-option="addressOption" :address="address"
                     @setAddressOption="setAddressOption" @setAddressInfo="setAddressInfo" />
@@ -46,8 +46,8 @@
 <script setup>
 import { reactive, computed, ref } from "vue";
 import { SectionTitle } from "../common/components";
-import PizzaList from "../modules/cart_module/Pizza.vue";
-import MiscList from "../modules/cart_module/Misc.vue";
+import Pizza from "../modules/cart_module/Pizza.vue";
+import Misc from "../modules/cart_module/Misc.vue";
 import AddressForm from "../modules/cart_module/AddressForm.vue";
 import { CartStore, ProfileStore } from "../states_store";
 import { useRouter } from "vue-router";
@@ -56,10 +56,10 @@ const router = useRouter();
 
 const profile_store = ProfileStore();
 const cart_store = CartStore();
-const addressOption = ref(1);
+const addressOption = ref(0);
 
 const setAddressOption = (value) => {
-    addressOption.value = value;
+    addressOption.value = value*1;
 };
 
 const address = reactive({
@@ -91,7 +91,7 @@ const createOrder = () => {
         price: cart_store.totalCartPrice,
     };
 
-    profile_store.addOrder(order);
+    profile_store.order_add(order);
 
     addressOption.value = 1;
     cart_store.clean();

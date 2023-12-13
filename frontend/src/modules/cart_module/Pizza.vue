@@ -8,7 +8,7 @@
                     <ul>
                         <li>{{ pizza.size.name }}, {{ pizza.dough.name }}</li>
                         <li>Соус: {{ pizza.sauce.name }}</li>
-                        <li>Начинка: {{ pizza.ingredientsString }}</li>
+                        <li>Начинка: {{ pizza.ingredientsStr }}</li>
                     </ul>
                 </div>
             </div>

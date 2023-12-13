@@ -21,6 +21,10 @@ export const DataStore = defineStore('data', {
     dough: doughs.map((dough) => normalizeDough(dough)),        
     sizes: sizes.map((size) => normalizeSizes(size))
   }),
-  getters: {},
+  getters: {
+    getIngredients(state) {
+      return state.ingredients;
+    },
+  },
   actions: {}
 })
