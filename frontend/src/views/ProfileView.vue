@@ -48,7 +48,6 @@ const profile_store = ProfileStore();
 const actionType = ref("");
 const auth_store = AuthStore();
 
-
 let addressParams = reactive({
     name: "",
     street: "",

@@ -78,8 +78,7 @@ const decrement = (ingredient, count) => {
   emits("upgradeIngredientCount", ingredient, count);
 };
 
-const increment = (ingredient, count) => {
-  console.log(ingredient.id);  
+const increment = (ingredient, count) => {  
   emits("upgradeIngredientCount", ingredient, count);
 };
 </script>

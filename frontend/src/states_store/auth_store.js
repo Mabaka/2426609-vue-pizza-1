@@ -21,7 +21,7 @@ export const AuthStore = defineStore('auth', {
             const res = await resources.auth.login(credentials);            
             if (res.__state === "success") {                
                 jwtService.saveToken(res.data.token);
-                return "success";
+                return res.__state;
             } else {
                 return res.data.message;
             }
@@ -54,12 +54,10 @@ export const AuthStore = defineStore('auth', {
                 profile_store.addresses_set(res_address.data);
             }
 
-            const res_orders = await resources.order.getOrders();
-            console.log(res_orders);
+            const res_orders = await resources.order.getOrders();            
             if (res_orders.__state !== "success") {
                 await this.logout();
-            } else {
-                console.log(res_orders.data);
+            } else {                
                 profile_store.orders_set(res_orders.data);
             }
         }

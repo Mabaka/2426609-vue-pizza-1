@@ -106,8 +106,7 @@ export const CartStore = defineStore('cart', {
 			];
 		},
 		miscs_set(miscs) {
-			this.misc = miscs;
-			console.log(`miscs: ${this.misc} and ${miscs}`);
+			this.misc = miscs;			
 		  }
 	}
 })

@@ -149,8 +149,8 @@ const getMiscImgById = (id) => {
   return getImageUrl(image);
 };
 
-const getTotalOrderPrice = (order,pizzas, miscs) => {
-  console.log(order);
+
+const getTotalOrderPrice = (order,pizzas, miscs) => {  
   let pizzasPrice = 0;
   let miscsPrice = 0;
   pizzas.map(

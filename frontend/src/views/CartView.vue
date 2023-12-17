@@ -60,17 +60,16 @@ const data_store = DataStore();
 const auth_store = AuthStore();
 
 const setAddressOption = (value) => {
-    addressOption.value = value;
-    if (value > 2) {
-        const list = profile_store.addresses.map((address) => address.name);
-
+    addressOption.value = value * 1;    
+    if (value > 1) {
+        const list = profile_store.addresses.map((address) => address.name);        
         const llist = ["Заберу сам", "Новый адрес", ...list];
         const name = llist[value];
 
         const addresss = profile_store.addresses.find(
             (address) => address.name === name
-        );
-
+        );        
+        
         address.building = addresss.building;
         address.flat = addresss.flat;
         address.street = addresss.street;
@@ -94,6 +93,7 @@ const address = reactive({
 });
 
 const setAddressInfo = (category, value) => {
+    console.log(category);
     address[category] = value;
 };
 

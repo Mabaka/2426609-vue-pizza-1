@@ -20,8 +20,7 @@ export const ProfileStore = defineStore('profile', {
 		async order_add(order) {
 			const order_p = {userId:order.userId,pizzas:order.pizzas,misc:order.misc,address:order.address,phone:order.phone};			
 			const res = await resources.order.addOrder(order_p);
-			if (res.__state !== "success") {
-				console.log(res);
+			if (res.__state !== "success") {				
 				return;
 			} else {
 				let newObject = {
