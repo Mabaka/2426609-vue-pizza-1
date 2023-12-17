@@ -6,31 +6,7 @@ export const CartStore = defineStore('cart', {
 		address: {},
 		pizzas: [],
 		misc: [
-			{
-			  id: 0,
-			  name: "Coca-Cola 0,5 литра",
-			  cost: "x 56 ₽",
-			  src: "/src/assets/img/cola.svg",
-			  price: 56,
-			  quantity: 0,
-			},
-			{
-			  id: 1,
-			  name: "Острый соус",
-			  cost: "x 30 ₽",
-			  src: "/src/assets/img/sauce.svg",
-			  price: 30,
-			  quantity: 0,
-			},
-			{
-			  id: 2,
-			  name: "Картошка из печи",
-			  cost: "x 56 ₽",
-			  src: "/src/assets/img/potato.svg",
-			  price: 56,
-			  quantity: 0,
-			},
-		  ]
+		]
 	}),
 	getters: {
 		fullCartPrice: (state) => {
@@ -49,7 +25,40 @@ export const CartStore = defineStore('cart', {
 		},
 		getMisc: (state) => {
 			return state.misc;
-		}
+		},
+		getFilteredPizzas: (state) => {
+			let filtered = [];
+			let ingredients = [];
+
+			state.pizzas.map((pizza) => {
+				pizza.ingredients.map((ingredient) =>
+					ingredients.push({
+						ingredientId: ingredient.id,
+						quantity: ingredient.quantity,
+					})
+				);
+				filtered.push({
+					name: pizza.name,
+					quantity: pizza.quantity,
+					ingredients: ingredients,
+					sauceId: pizza.sauce.id,
+					doughId: pizza.dough.id,
+					sizeId: pizza.size.id,
+				});
+			});
+			return filtered;
+		},
+		getFilteredMiscs: (state) => {
+			let filtered = [];
+
+			state.misc.map((misc) => {
+				filtered.push({
+					miscId: misc.id,
+					quantity: misc.quantity,
+				});
+			});
+			return filtered;
+		},
 	},
 	actions: {
 		pizza_add(pizza) {
@@ -60,7 +69,7 @@ export const CartStore = defineStore('cart', {
 				this.pizzas.push({ ...pizza, quantity: 1 });
 			}
 		},
-		pizza_edit(created_pizza) {			
+		pizza_edit(created_pizza) {
 			const index = this.pizzas.findIndex((pizza) => pizza.id === created_pizza.id);
 			const have = this.pizzas.find((item) => item?.id === created_pizza?.id) ?? -1;
 			this.pizzas.splice(index, 1, {
@@ -84,38 +93,21 @@ export const CartStore = defineStore('cart', {
 				this.misc.push({ ...misc_created, quantity: 1 });
 			}
 		},
-		misc_drop(id) {
-			const have = this.misc.find((item) => item.id === id);
-			have.quantity = have.quantity - 1;				
+		misc_drop(misc) {
+			const have = this.misc.find((item) => item.id === misc.id);						 
+			have.quantity = have.quantity - 1;
+			if (have.quantity === 0) {
+				this.misc = this.misc.filter((misc) => misc.id !== have.id);
+			}
 		},
 		clean() {
 			this.pizzas = [];
 			this.misc = [
-			  {
-				id: 0,
-				name: "Coca-Cola 0,5 литра",
-				cost: "x 56 ₽",
-				src: "/src/assets/img/cola.svg",
-				price: 56,
-				quantity: 0,
-			  },
-			  {
-				id: 1,
-				name: "Острый соус",
-				cost: "x 30 ₽",
-				src: "/src/assets/img/sauce.svg",
-				price: 30,
-				quantity: 0,
-			  },
-			  {
-				id: 2,
-				name: "Картошка из печи",
-				cost: "x 56 ₽",
-				src: "/src/assets/img/potato.svg",
-				price: 56,
-				quantity: 0,
-			  },
 			];
-		  },
+		},
+		miscs_set(miscs) {
+			this.misc = miscs;
+			console.log(`miscs: ${this.misc} and ${miscs}`);
+		  }
 	}
 })

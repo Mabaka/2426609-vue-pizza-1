@@ -1,3 +1,4 @@
+import { LoggedIn } from "../middlewares/LoggedIn";
 export default [
     {
       path: "/",
@@ -31,7 +32,7 @@ export default [
       path: "/user",
       name: "UserView",
       component: () => import("../views/UserView.vue"),
-      meta: { layout: "AppLayoutUsr" },
+      meta: { layout: "AppLayoutUsr",middlewares: [LoggedIn] },
       children: [
         {
           path: "profile",

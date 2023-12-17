@@ -32,7 +32,7 @@ import { SheetCard, SectionTitle, } from "../common/components";
 import { DoughComp, SizeComp, SauceComp, IngredientsComp, PizzaComp, } from "../modules/constructor";
 
 import { DataStore, PizzaStore, CartStore } from "../states_store";
-import { useRoute ,useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 const cart_store = CartStore();
 const data_store = DataStore();
 const pizza_store = PizzaStore();
@@ -41,18 +41,20 @@ const route = useRoute();
 const router = useRouter();
 
 const { id } = route.params;
-if (id){
+if (id) {
   pizza_store.pizzaState_set(cart_store.pizzas.find((pizza) => pizza.id === +id));
 }
-else{
-  pizza_store.pizzaState_set({
-    id: Math.floor(Math.random() * 100) + 1,
-    name: "",
-    dough: data_store.dough[0],
-    size: data_store.sizes[0],
-    sauce: data_store.sauce[0],
-    ingredients: [],
-  }); 
+else {
+  setTimeout(() => {
+    pizza_store.pizzaState_set({
+      id: cart_store.pizzas.length + 1,
+      name: "",
+      dough: data_store.dough[0],
+      size: data_store.sizes[0],
+      sauce: data_store.sauce[0],
+      ingredients: [],
+    });
+  }, "1000");
 }
 const addPizza = () => {
   if (id) {
@@ -64,7 +66,7 @@ const addPizza = () => {
   }
 };
 
-const buttonDisabled = computed(() => {  
+const buttonDisabled = computed(() => {
   return pizza_store.name === "";
 });
 </script>

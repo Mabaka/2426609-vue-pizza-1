@@ -16,7 +16,7 @@ export const PizzaStore = defineStore('pizza', {
               0
             );
       
-            const mlt = state.size.multiplier;
+            const mlt = state?.size?.multiplier ?? 1;
             return (
                 mlt * (state.sauce.price + state.dough.price + ingredientsTotalPrice)
             );

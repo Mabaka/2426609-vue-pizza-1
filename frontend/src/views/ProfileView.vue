@@ -8,24 +8,24 @@
 
             <div class="user">
                 <picture>
-                    <source type="image/webp" srcset="img/users/user5@2x.webp 1x, img/users/user5@4x.webp 2x" />
+                    <source type="image/webp" srcset="@/assets/img/users/user5@2x.webp 1x, @/assets/img/users/user5@4x.webp 2x" />
                     <img src="@/assets/img/users/user5@2x.jpg" srcset="@/assets/img/users/user5@4x.jpg"
-                        :alt="profile_store.name" width="72" height="72" />
+                        :alt="auth_store.user?.name" width="72" height="72" />
                 </picture>
                 <div class="user__name">
                     <span>
-                        {{ profile_store.name }}</span>
+                        {{ auth_store.user?.name }}</span>
                 </div>
                 <p class="user__phone">
                     Контактный телефон: <span>
-                        {{ profile_store.phone }}</span>
+                        {{ auth_store.user?.phone }}</span>
                 </p>
             </div>
 
             <AddresssList :addresses="profile_store.addresses" @openForm="openForm" />
 
             <AddressForm :status="opened" :address-params="addressParams" :action-type="actionType" @save="save"
-                @delete="profile_store.address_drop(addressParams.id)" @setAddressInfo="setValueAddress" />
+                @delete="del(addressParams.id)" @setAddressInfo="setValueAddress" />
 
             <div class="layout__button">
                 <button type="button" class="button button--border" @click="openForm('add', {})">
@@ -38,7 +38,7 @@
   
 <script setup>
 import { SectionTitle } from "../common/components";
-import { ProfileStore } from "../states_store/";
+import { ProfileStore, AuthStore } from "../states_store/";
 import { reactive, ref } from "vue";
 import AddressForm from "../modules/prof/AddressForm.vue";
 import AddresssList from "../modules/prof/AddressList.vue";
@@ -46,6 +46,7 @@ import AddresssList from "../modules/prof/AddressList.vue";
 const opened = ref(false);
 const profile_store = ProfileStore();
 const actionType = ref("");
+const auth_store = AuthStore();
 
 
 let addressParams = reactive({
@@ -54,35 +55,34 @@ let addressParams = reactive({
     building: "",
     flat: "",
     comment: "",
-    userId: 0,
-    id: 0
+    userId: 0,    
 });
 
 const setValueAddress = (option, value) => {    
     addressParams[option] = value;
 };
 
+const del = (id) => {
+  profile_store.adress_delete(id);
+  opened.value = false;
+};
+
 const save = () => {
-    if (actionType.value == "edit") {
-        console.log(addressParams);
-        profile_store.address_edit({ ...addressParams, userId: profile_store.id });
+    if (actionType.value == "edit") {              
+        profile_store.address_edit({ ...addressParams, userId: auth_store.user?.id });
     }
-    if (actionType.value == "add") {
-        console.log(addressParams);
+    if (actionType.value == "add") {        
         profile_store.address_add({
             ...addressParams,
-            userId: profile_store.id,
-            id: Math.floor(Math.random() * 100) + 1,
+            userId: auth_store.user?.id,            
         });
-    }
-    addressParams.id = Math.floor(Math.random() * 100) + 1;
+    }    
     addressParams.name = "";
     addressParams.street = "";
     addressParams.building = "";
     addressParams.flat = "";
-    addressParams.comment = "";
-
-    addressParams.userId = profile_store.id;
+    addressParams.comment = "";    
+    opened.value = false;
 };
 
 const openForm = (action, order) => {

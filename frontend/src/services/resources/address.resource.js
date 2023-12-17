@@ -9,7 +9,8 @@ export class AddressResource extends CrudService {
         return this.get();
     }
 
-    addAddress(address) {
+    addAddress(address) {        
+        console.log(address);
         return this.post(address);
     }
 
