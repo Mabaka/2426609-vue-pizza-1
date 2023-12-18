@@ -1,4 +1,5 @@
-<template>  
+<template>
+  <transition name="fade">
     <div class="popup">
       <router-link :to="{ name: 'OrdersView' }" class="close">
         <span class="visually-hidden">Закрыть попап</span>
@@ -8,28 +9,16 @@
       </div>
       <p>Мы начали готовить Ваш заказ, скоро привезём его вам ;)</p>
       <div class="popup__button">
-        <transition name="slide">
-          <router-link :to="{ name: 'OrdersView' }" class="button">Отлично, я жду!</router-link>
-        </transition>        
+        <router-link :to="{ name: 'OrdersView' }" class="button">Отлично, я жду!</router-link>
       </div>
-    </div>  
+    </div>
+  </transition>
 </template>
 
 <style lang="scss">
 @import "@/assets/scss/app.scss";
 
-.slide-enter-active {
-  transition: all 0.4s;
-}
-
-.slide-enter {
-  opacity: 0;
-  margin-left: 90px;
-}
-
-.slide-leave-active {
-  transition: all 0.4s;
-  opacity: 0;
-  margin-left: -100px;
+.fade-enter, .fade-leave {
+  transition: opacity 0.3s ease-in-out;
 }
 </style>
