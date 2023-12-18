@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade">
+  <transition name="slide">
     <div class="popup">
       <router-link :to="{ name: 'OrdersView' }" class="close">
         <span class="visually-hidden">Закрыть попап</span>
@@ -20,8 +20,12 @@
 <style lang="scss">
 @import "@/assets/scss/app.scss";
 
-.fade-enter,
-.fade-leave {
-  transition: opacity 0.3s ease-in-out;
+.pop-enter-from {
+  opacity: 0;
+}
+
+.pop-enter-active,
+.pop-enter-to {
+  transition: opacity 2s ease;
 }
 </style>
