@@ -1,14 +1,14 @@
 <template>
     <div class="appLayout">
       <app-header></app-header>
-      <app-side-bar></app-side-bar>
+      <AppSB></AppSB>
       <slot />
     </div>
   </template>
 
 <script setup>
 import AppHeader from "./AppHeader.vue";
-import AppSideBar from "./AppSB.vue";
+import AppSB from "./AppSB.vue";
 </script>
 
 <style lang="scss" scoped>
