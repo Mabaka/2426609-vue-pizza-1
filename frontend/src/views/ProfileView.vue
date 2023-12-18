@@ -130,7 +130,7 @@ const openForm = (action, order) => {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "@/assets/scss/app.scss";
 
 .form-enter-active,
@@ -142,4 +142,6 @@ const openForm = (action, order) => {
 .form-leave-to {
   opacity: 0;
 }
+
+
 </style>
