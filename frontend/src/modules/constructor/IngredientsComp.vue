@@ -65,8 +65,7 @@ const props = defineProps({
 const emits = defineEmits(["upgradeIngredientCount"]);
 
 const getValue = (id) => {
-  const have =
-    props.selectedIngredients.find((item) => item?.id === id) ?? -1;
+  const have = props.selectedIngredients.find((item) => item?.id === id) ?? -1;
   if (have === -1) {
     return 0;
   } else {
@@ -78,7 +77,7 @@ const decrement = (ingredient, count) => {
   emits("upgradeIngredientCount", ingredient, count);
 };
 
-const increment = (ingredient, count) => {  
+const increment = (ingredient, count) => {
   emits("upgradeIngredientCount", ingredient, count);
 };
 </script>

@@ -3,7 +3,7 @@ import sizes from "./data/sizes";
 import ingredients from "./data/ingredients";
 import sauces from "./data/sauces";
 
-export const normalizeDough = (dough) => {  
+export const normalizeDough = (dough) => {
   return {
     ...dough,
     doughSize: dough.id ? doughSizes[dough.id] : "",

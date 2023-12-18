@@ -19,7 +19,6 @@
             price: sauce.price,
           })
         "
-        
       />
       <span>{{ sauce.name }}</span>
     </label>
