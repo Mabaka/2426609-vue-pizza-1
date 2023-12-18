@@ -142,6 +142,4 @@ const openForm = (action, order) => {
 .form-leave-to {
   opacity: 0;
 }
-
-
 </style>

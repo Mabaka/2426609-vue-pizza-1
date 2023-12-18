@@ -9,7 +9,9 @@
       </div>
       <p>Мы начали готовить Ваш заказ, скоро привезём его вам ;)</p>
       <div class="popup__button">
-        <router-link :to="{ name: 'OrdersView' }" class="button">Отлично, я жду!</router-link>
+        <router-link :to="{ name: 'OrdersView' }" class="button"
+          >Отлично, я жду!</router-link
+        >
       </div>
     </div>
   </transition>
@@ -18,7 +20,8 @@
 <style lang="scss">
 @import "@/assets/scss/app.scss";
 
-.fade-enter, .fade-leave {
+.fade-enter,
+.fade-leave {
   transition: opacity 0.3s ease-in-out;
 }
 </style>

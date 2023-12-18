@@ -2,17 +2,30 @@
   <div class="layout__sidebar sidebar">
     <transition name="slide">
       <router-link to="/" class="logo layout__logo">
-        <img src="../assets/img/logo.svg" alt="V!U!E! Pizza logo" width="90" height="40" />
+        <img
+          src="../assets/img/logo.svg"
+          alt="V!U!E! Pizza logo"
+          width="90"
+          height="40"
+        />
       </router-link>
     </transition>
     <transition name="slide">
-      <router-link class="layout__link" :class="{ 'layout__link--active': $route.path === '/user/orders' }"
-        to="/user/orders">История заказов</router-link>
+      <router-link
+        class="layout__link"
+        :class="{ 'layout__link--active': $route.path === '/user/orders' }"
+        to="/user/orders"
+        >История заказов</router-link
+      >
     </transition>
 
     <transition name="slide">
-      <router-link class="layout__link" :class="{ 'layout__link--active': $route.path === '/user/profile' }"
-        to="/user/profile">Мои данные</router-link>
+      <router-link
+        class="layout__link"
+        :class="{ 'layout__link--active': $route.path === '/user/profile' }"
+        to="/user/profile"
+        >Мои данные</router-link
+      >
     </transition>
   </div>
 </template>
