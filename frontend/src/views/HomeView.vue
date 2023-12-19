@@ -32,12 +32,14 @@ import { SheetCard, SectionTitle, } from "../common/components";
 import { DoughComp, SizeComp, SauceComp, IngredientsComp, PizzaComp, } from "../modules/constructor";
 
 import { DataStore, PizzaStore, CartStore } from "../states_store";
-import { useRoute } from "vue-router";
+import { useRoute ,useRouter } from "vue-router";
 const cart_store = CartStore();
 const data_store = DataStore();
 const pizza_store = PizzaStore();
 
 const route = useRoute();
+const router = useRouter();
+
 const { id } = route.params;
 if (id){
   pizza_store.pizzaState_set(cart_store.pizzas.find((pizza) => pizza.id === +id));
@@ -55,8 +57,10 @@ else{
 const addPizza = () => {
   if (id) {
     cart_store.pizza_edit(pizza_store.getPizzaInfo);
+    router.push("/cart");
   } else {
     cart_store.pizza_add(pizza_store.getPizzaInfo);
+    router.push("/cart");
   }
 };
 

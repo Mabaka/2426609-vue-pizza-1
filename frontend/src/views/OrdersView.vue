@@ -16,7 +16,7 @@
             </div>
   
             <div class="order__sum">
-              <span>Сумма заказа: {{ order.price }} ₽</span>
+              <span>Сумма заказа: {{ order.price}} ₽</span>
             </div>
   
             <div class="order__button">
@@ -92,7 +92,7 @@
   import { ProfileStore } from "../states_store/";
   const profile_store = ProfileStore();
   
-  const priceString = (price, quantity) => {
+  const priceString = (price, quantity) => {    
     return `${quantity} x ${price} ₽`;
   };
   </script>

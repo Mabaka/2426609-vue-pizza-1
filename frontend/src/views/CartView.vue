@@ -33,8 +33,7 @@
 
             <div class="footer__submit">
                 <button type="submit" class="button" :disabled="!cart_store.pizzas.length ||
-                    address.street === '' ||
-                    address.building === ''
+                    (addressOption > 0 && (address.street === '' || address.building === ''))
                     ">
                     Оформить заказ
                 </button>
@@ -59,7 +58,7 @@ const cart_store = CartStore();
 const addressOption = ref(0);
 
 const setAddressOption = (value) => {
-    addressOption.value = value*1;
+    addressOption.value = value * 1;
 };
 
 const address = reactive({
@@ -75,9 +74,16 @@ const setAddressInfo = (category, value) => {
 const createOrder = () => {
     let orderAddress = "";
 
-    if (addressOption.value == 0) {
-        orderAddress = "Заберёт сам";
+    if (addressOption.value == 0) {        
+        orderAddress = "Заберу сам";
     } else if (addressOption.value == 1) {
+        profile_store.address_add({
+            ...address,
+            userId: profile_store.id,
+            id: Math.floor(Math.random() * 100) + 1,
+            name: "",
+            comment: "",
+        });
         orderAddress = Object.values(address).join(", ");
     } else {
         orderAddress = profile_store.addresses[0].orderAddress;
@@ -88,17 +94,17 @@ const createOrder = () => {
         orderPizzas: cart_store.pizzas,
         orderMisc: cart_store.misc,
         orderAddress,
-        price: cart_store.totalCartPrice,
+        price: cart_store.fullCartPrice,
     };
 
     profile_store.order_add(order);
 
     addressOption.value = 1;
     cart_store.clean();
-    router.push("/user/orders");
+    router.push("/success");
 };
 
-const selectList = computed(() => {        
+const selectList = computed(() => {
     const list = profile_store.addresses.map((address) => address.name);
     return ["Заберу сам", "Новый адрес", ...list];
 });
