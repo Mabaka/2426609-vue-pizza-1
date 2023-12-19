@@ -1,155 +1,21 @@
 <template>
-    <form action="nothing.html" method="post" class="layout-form">
+    <form action="test.html" method="post" class="layout-form" @submit.prevent="createOrder">
         <main class="content cart">
             <div class="container">
                 <div class="cart__title">
                     <SectionTitle size="big">Корзина</SectionTitle>
                 </div>
 
-                <ul class="cart-list sheet">
-                    <li class="cart-list__item">
-                        <div class="product cart-list__product">
-                            <img src="../assets/img/product.svg" class="product__img" width="56" height="56"
-                                alt="Капричоза" />
-                            <div class="product__text">
-                                <h2>Капричоза</h2>
-                                <ul>
-                                    <li>30 см, на тонком тесте</li>
-                                    <li>Соус: томатный</li>
-                                    <li>Начинка: грибы, лук, ветчина, пармезан, ананас</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <AppCounter class="cart-list__counter" :count="1" :orange="true" />
-
-                        <div class="cart-list__price">
-                            <b>782 ₽</b>
-                        </div>
-
-                        <div class="cart-list__button">
-                            <button type="button" class="cart-list__edit">Изменить</button>
-                        </div>
-                    </li>
-                    <li class="cart-list__item">
-                        <div class="product cart-list__product">
-                            <img src="../assets/img/product.svg" class="product__img" width="56" height="56"
-                                alt="Любимая пицца" />
-                            <div class="product__text">
-                                <h2>Любимая пицца</h2>
-                                <ul>
-                                    <li>30 см, на тонком тесте</li>
-                                    <li>Соус: томатный</li>
-                                    <li>
-                                        Начинка: грибы, лук, ветчина, пармезан, ананас, бекон, блю
-                                        чиз
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <AppCounter class="cart-list__counter" :count="2" :orange="true" />
-
-                        <div class="cart-list__price">
-                            <b>782 ₽</b>
-                        </div>
-
-                        <div class="cart-list__button">
-                            <button type="button" class="cart-list__edit">Изменить</button>
-                        </div>
-                    </li>
-                </ul>
-
-                <div class="cart__additional">
-                    <ul class="additional-list">
-                        <li class="additional-list__item sheet">
-                            <p class="additional-list__description">
-                                <img src="../assets/img/cola.svg" width="39" height="60" alt="Coca-Cola 0,5 литра" />
-                                <span>Coca-Cola 0,5 литра</span>
-                            </p>
-
-                            <div class="additional-list__wrapper">
-                                <AppCounter class="additional-list__counter" :count="2" :orange="true" />
-
-                                <div class="additional-list__price">
-                                    <b>× 56 ₽</b>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="additional-list__item sheet">
-                            <p class="additional-list__description">
-                                <img src="../assets/img/sauce.svg" width="39" height="60" alt="Острый соус" />
-                                <span>Острый соус</span>
-                            </p>
-
-                            <div class="additional-list__wrapper">
-                                <AppCounter class="additional-list__counter" :count="2" :orange="true" />
-
-                                <div class="additional-list__price">
-                                    <b>× 30 ₽</b>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="additional-list__item sheet">
-                            <p class="additional-list__description">
-                                <img src="../assets/img/potato.svg" width="39" height="60" alt="Картошка из печи" />
-                                <span>Картошка из печи</span>
-                            </p>
-
-                            <div class="additional-list__wrapper">
-                                <AppCounter class="additional-list__counter" :count="2" :orange="true" />
-
-                                <div class="additional-list__price">
-                                    <b>× 56 ₽</b>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                <div v-if="!cart_store.getPizzas.length" class="sheet cart__empty">
+                    <p>В корзине нет ни одного товара</p>
                 </div>
+                <Pizza v-else :pizzas="cart_store.getPizzas" @addPizza="cart_store.pizza_add"
+                    @deletePizza="cart_store.pizza_drop" />
 
-                <div class="cart__form">
-                    <div class="cart-form">
-                        <label class="cart-form__select">
-                            <span class="cart-form__label">Получение заказа:</span>
+                <Misc :miscs="cart_store.getMisc" @addMisc="cart_store.misc_add" @deleteMisc="cart_store.misc_drop" />
 
-                            <select name="test" class="select">
-                                <option value="1">Заберу сам</option>
-                                <option value="2">Новый адрес</option>
-                                <option value="3">Дом</option>
-                            </select>
-                        </label>
-
-                        <label class="input input--big-label">
-                            <span>Контактный телефон:</span>
-                            <input type="text" name="tel" placeholder="+7 999-999-99-99" />
-                        </label>
-
-                        <div class="cart-form__address">
-                            <span class="cart-form__label">Новый адрес:</span>
-
-                            <div class="cart-form__input">
-                                <label class="input">
-                                    <span>Улица*</span>
-                                    <input type="text" name="street" />
-                                </label>
-                            </div>
-
-                            <div class="cart-form__input cart-form__input--small">
-                                <label class="input">
-                                    <span>Дом*</span>
-                                    <input type="text" name="house" />
-                                </label>
-                            </div>
-
-                            <div class="cart-form__input cart-form__input--small">
-                                <label class="input">
-                                    <span>Квартира</span>
-                                    <input type="text" name="apartment" />
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <AddressForm :options="selectList" :address-option="addressOption" :address="address"
+                    @setAddressOption="setAddressOption" @setAddressInfo="setAddressInfo" />
             </div>
         </main>
         <section class="footer">
@@ -162,22 +28,78 @@
                 Перейти к конструктору<br />чтоб собрать ещё одну пиццу
             </p>
             <div class="footer__price">
-                <b>Итого: 2 228 ₽</b>
+                <b>Итого: {{ cart_store.fullCartPrice }} ₽</b>
             </div>
 
             <div class="footer__submit">
-                <button type="submit" class="button">Оформить заказ</button>
+                <button type="submit" class="button" :disabled="!cart_store.pizzas.length ||
+                    address.street === '' ||
+                    address.building === ''
+                    ">
+                    Оформить заказ
+                </button>
             </div>
         </section>
     </form>
 </template>
   
 <script setup>
+import { reactive, computed, ref } from "vue";
 import { SectionTitle } from "../common/components";
-import { AppCounter } from "../common/components";
+import Pizza from "../modules/cart_module/Pizza.vue";
+import Misc from "../modules/cart_module/Misc.vue";
+import AddressForm from "../modules/cart_module/AddressForm.vue";
+import { CartStore, ProfileStore } from "../states_store";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const profile_store = ProfileStore();
+const cart_store = CartStore();
+const addressOption = ref(0);
+
+const setAddressOption = (value) => {
+    addressOption.value = value*1;
+};
+
+const address = reactive({
+    street: "",
+    building: "",
+    flat: "",
+});
+
+const setAddressInfo = (category, value) => {
+    address[category] = value;
+};
+
+const createOrder = () => {
+    let orderAddress = "";
+
+    if (addressOption.value == 0) {
+        orderAddress = "Заберёт сам";
+    } else if (addressOption.value == 1) {
+        orderAddress = Object.values(address).join(", ");
+    } else {
+        orderAddress = profile_store.addresses[0].orderAddress;
+    }
+
+    const order = {
+        id: Date.now(),
+        orderPizzas: cart_store.pizzas,
+        orderMisc: cart_store.misc,
+        orderAddress,
+        price: cart_store.totalCartPrice,
+    };
+
+    profile_store.order_add(order);
+
+    addressOption.value = 1;
+    cart_store.clean();
+    router.push("/user/orders");
+};
+
+const selectList = computed(() => {        
+    const list = profile_store.addresses.map((address) => address.name);
+    return ["Заберу сам", "Новый адрес", ...list];
+});
 </script>
-  
-<style lang="scss" scoped>
-@import "@/assets/scss/app.scss";
-</style>
-  

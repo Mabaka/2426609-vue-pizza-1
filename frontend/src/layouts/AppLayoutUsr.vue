@@ -1,6 +1,6 @@
 <template>
     <div class="appLayout">
-      <app-header></app-header>
+      <AppHeader></AppHeader>
       <AppSB></AppSB>
       <slot />
     </div>

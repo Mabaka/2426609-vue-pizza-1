@@ -1,182 +1,102 @@
 <template>
     <main class="layout">
-        <div class="layout__content">
-            <div class="layout__title">
-                <SectionTitle size="big">История заказов</SectionTitle>
-            </div>
-
-            <section class="sheet order">
-                <div class="order__wrapper">
-                    <div class="order__number">
-                        <b>Заказ #11199929</b>
-                    </div>
-
-                    <div class="order__sum">
-                        <span>Сумма заказа: 1 564 ₽</span>
-                    </div>
-
-                    <div class="order__button">
-                        <button type="button" class="button button--border">Удалить</button>
-                    </div>
-                    <div class="order__button">
-                        <button type="button" class="button">Повторить</button>
-                    </div>
-                </div>
-
-                <ul class="order__list">
-                    <li class="order__item">
-                        <div class="product">
-                            <img src="../assets/img/product.svg" class="product__img" width="56" height="56"
-                                alt="Капричоза" />
-                            <div class="product__text">
-                                <h2>Капричоза</h2>
-                                <ul>
-                                    <li>30 см, на тонком тесте</li>
-                                    <li>Соус: томатный</li>
-                                    <li>
-                                        Начинка: грибы, лук, ветчина, пармезан, ананас, бекон, блю
-                                        чиз
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <p class="order__price">782 ₽</p>
-                    </li>
-                    <li class="order__item">
-                        <div class="product">
-                            <img src="../assets/img/product.svg" class="product__img" width="56" height="56"
-                                alt="Капричоза" />
-                            <div class="product__text">
-                                <h2>Моя любимая</h2>
-                                <ul>
-                                    <li>30 см, на тонком тесте</li>
-                                    <li>Соус: томатный</li>
-                                    <li>Начинка: грибы, лук, ветчина, пармезан, ананас</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <p class="order__price">2х782 ₽</p>
-                    </li>
-                </ul>
-
-                <ul class="order__additional">
-                    <li>
-                        <img src="../assets/img/cola.svg" width="20" height="30" alt="Coca-Cola 0,5 литра" />
-                        <p>
-                            <span>Coca-Cola 0,5 литра</span>
-                            <b>56 ₽</b>
-                        </p>
-                    </li>
-                    <li>
-                        <img src="../assets/img/sauce.svg" width="20" height="30" alt="Острый соус" />
-                        <span>Острый соус <br />30 ₽</span>
-                    </li>
-                    <li>
-                        <img src="../assets/img/potato.svg" width="20" height="30" alt="Картошка из печи" />
-                        <p>
-                            <span>Картошка из печи</span>
-                            <b>170 ₽</b>
-                        </p>
-                    </li>
-                </ul>
-
-                <p class="order__address">
-                    Адрес доставки: Тест (или если адрес новый - писать целиком)
-                </p>
-            </section>
-
-            <section class="sheet order">
-                <div class="order__wrapper">
-                    <div class="order__number">
-                        <b>Заказ #11199929</b>
-                    </div>
-
-                    <div class="order__sum">
-                        <span>Сумма заказа: 1 564 ₽</span>
-                    </div>
-
-                    <div class="order__button">
-                        <button type="button" class="button button--border">Удалить</button>
-                    </div>
-                    <div class="order__button">
-                        <button type="button" class="button">Повторить</button>
-                    </div>
-                </div>
-
-                <ul class="order__list">
-                    <li class="order__item">
-                        <div class="product">
-                            <img src="../assets/img/product.svg" class="product__img" width="56" height="56"
-                                alt="Капричоза" />
-                            <div class="product__text">
-                                <h2>Капричоза</h2>
-                                <p>
-                                    30 см, на тонком тесте<br />
-                                    Соус: томатный<br />
-                                    Начинка: грибы, лук, ветчина, пармезан, ананас
-                                </p>
-                            </div>
-                        </div>
-
-                        <p class="order__price">782 ₽</p>
-                    </li>
-                    <li class="order__item">
-                        <div class="product">
-                            <img src="../assets/img/product.svg" class="product__img" width="56" height="56"
-                                alt="Капричоза" />
-                            <div class="product__text">
-                                <h2>Моя любимая</h2>
-                                <p>
-                                    30 см, на тонком тесте<br />
-                                    Соус: томатный<br />
-                                    Начинка: грибы, лук, ветчина, пармезан, ананас
-                                </p>
-                            </div>
-                        </div>
-
-                        <p class="order__price">2х782 ₽</p>
-                    </li>
-                </ul>
-
-                <ul class="order__additional">
-                    <li>
-                        <img src="../assets/img/cola.svg" width="20" height="30" alt="Coca-Cola 0,5 литра" />
-                        <p>
-                            <span>Coca-Cola 0,5 литра</span>
-                            <b>56 ₽</b>
-                        </p>
-                    </li>
-                    <li>
-                        <img src="../assets/img/sauce.svg" width="20" height="30" alt="Острый соус" />
-                        <p>
-                            <span>Острый соус</span>
-                            <b>30 ₽</b>
-                        </p>
-                    </li>
-                    <li>
-                        <img src="../assets/img/potato.svg" width="20" height="30" alt="Картошка из печи" />
-                        <p>
-                            <span>Картошка из печи</span>
-                            <b>170 ₽</b>
-                        </p>
-                    </li>
-                </ul>
-
-                <p class="order__address">
-                    Адрес доставки: Тест (или если адрес новый - писать целиком)
-                </p>
-            </section>
+      <div class="layout__content">
+        <div class="layout__title">
+          <SectionTitle size="big">История заказов</SectionTitle>
         </div>
+  
+        <section
+          v-for="order in profile_store.orders"
+          :key="order.id"
+          class="sheet order"
+        >
+          <div class="order__wrapper">
+            <div class="order__number">
+              <b>Заказ #{{ order.id }}</b>
+            </div>
+  
+            <div class="order__sum">
+              <span>Сумма заказа: {{ order.price }} ₽</span>
+            </div>
+  
+            <div class="order__button">
+              <button
+                type="button"
+                class="button button--border"
+                @click="profile_store.order_drop(order.id)"
+              >
+                Удалить
+              </button>
+            </div>
+            <div class="order__button">
+              <button
+                type="button"
+                class="button"
+                @click="profile_store.order_add({ ...order, id: Math.floor(Math.random() * 100) + 1 })"
+              >
+                Повторить
+              </button>
+            </div>
+          </div>
+  
+          <ul class="order__list">
+            <li
+              v-for="pizza in order.orderPizzas"
+              :key="pizza.id"
+              class="order__item"
+            >
+              <div class="product">
+                <img
+                  src="../assets/img/product.svg"
+                  class="product__img"
+                  width="56"
+                  height="56"
+                  :alt="pizza.name"
+                />
+                <div class="product__text">
+                  <h2>{{ pizza.name }}</h2>
+                  <ul>
+                    <li>{{ pizza.size.name }}, {{ pizza.dough.name }}</li>
+                    <li>Соус: {{ pizza.sauce.name }}</li>
+                    <li>
+                      {{ pizza.ingredientsString }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+  
+              <p class="order__price">
+                {{ priceString(pizza.price, pizza.quantity) }}
+              </p>
+            </li>
+          </ul>
+  
+          <ul class="order__additional">
+            <li v-for="misc in order.orderMisc" :key="misc.id">
+              <img :src="misc.src" width="20" height="30" :alt="misc.name" />
+              <p>
+                <span>{{ misc.name }}</span>
+                <b>{{ misc.price }} ₽</b>
+              </p>
+            </li>
+          </ul>
+  
+          <p class="order__address">Адрес доставки: {{ order.orderAddress }}</p>
+        </section>
+      </div>
     </main>
-</template>
+  </template>
   
-<script setup>
-import { SectionTitle } from "../common/components";
-</script>
+  <script setup>
+  import { SectionTitle } from "../common/components";
+  import { ProfileStore } from "../states_store/";
+  const profile_store = ProfileStore();
   
-<style lang="scss" scoped>
-@import "@/assets/scss/app.scss";
-</style>
+  const priceString = (price, quantity) => {
+    return `${quantity} x ${price} ₽`;
+  };
+  </script>
   
+  <style lang="scss" scoped>
+  @import "@/assets/scss/app.scss";
+  </style>

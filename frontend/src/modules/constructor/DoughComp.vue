@@ -2,20 +2,16 @@
   <div class="content__dough">
     <SheetCard class="dough">
       <template #title>Выберите тесто</template>
-      <label
-        v-for="dough in normalizedDoughs"
-        :key="dough.id"
-        class="dough__input"
-        :class="`dough__input--${dough.doughSize}`"
-      >
-        <input
-          type="radio"
-          name="dought"
-          :value="dough.doughSize"
-          class="visually-hidden"
-          :checked="dough.doughSize === modelValue"
-          @input="emit('update:modelValue', $event.target.value)"
-        />
+      <label v-for="dough in normalizedDoughs" :key="dough.id" class="dough__input"
+        :class="`dough__input--${dough.doughSize}`">
+        <input type="radio" name="dought" :value="dough.doughSize" class="visually-hidden"
+          :checked="dough.doughSize === modelValue.doughSize" @input="
+            emit('update:modelValue', {
+              ...dough,
+              doughSize: $event.target.value,
+              price: dough.price,
+            })
+            " />
         <b>{{ dough.name }}</b>
         <span>{{ dough.description }}</span>
       </label>
@@ -31,7 +27,7 @@ defineProps({
     required: true,
   },
   modelValue: {
-    type: String,
+    type: Object,
     required: true,
   },
 });

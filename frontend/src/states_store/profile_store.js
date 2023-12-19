@@ -2,15 +2,14 @@ import { defineStore } from 'pinia'
 
 export const ProfileStore = defineStore('profile', {
 	state: () => ({
-		profile: {
+		 
 			id: 0,
 			name: "",
 			email: "",
 			avatar: "",
 			phone: "",
 			addresses:[],
-            orders:[]
-		},
+            orders:[],
 	}),
 	getters: {
 		getAddresses: (state)=> {
@@ -34,30 +33,37 @@ export const ProfileStore = defineStore('profile', {
 	},
 	actions: {
         login(email, password) {			
+			this.email = email;
 		},
 		logout() {			
-			state.id = 0;
-			state.name = "";
-			state.email = "";
-			state.avatar = "";
-			state.phone = "";
-			state.orders = [];
-			state.addresses = [];
+			this.id = 0;
+			this.name = "";
+			this.email = "";
+			this.avatar = "";
+			this.phone = "";
+			this.orders = [];
+			this.addresses = [];
 		},
 		order_add(order){
-			state.orders.push(order);
+			this.orders.push(order);
 		},
 		order_drop(id) {
-			state.orders = state.orders.filter((order) => order.id !== id);
+			this.orders = this.orders.filter((order) => order.id !== id);
 		},
 		orders_clear() {
-			state.orders = [];
+			this.orders = [];
 		},
 		address_add(address) {
-			state.addresses.push(address);
+			this.addresses.push(address);
 		},
 		address_drop(id) {
-			state.addresses = state.addresses.filter((address) => address.id !== id);
+			this.addresses = this.addresses.filter((address) => address.id !== id);
 		},
+		address_edit(address_created) {
+			const index = this.addresses.findIndex(
+			  (address) => address.id === address_created.id
+			);
+			this.addresses.splice(index, 1, address_created);
+		  },
     }
 })
