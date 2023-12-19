@@ -8,12 +8,12 @@ import { SizeResource } from "./size.resource";
 import { AuthService } from "../api/auth.service";
 
 export default {
-    address: new AddressResource(),
-    dough: new DoughResource(),
-    ingredient: new IngredientResource(),
-    misc: new MiscResource(),
-    order: new OrderResource(),
-    sauce: new SauceResource(),
-    size: new SizeResource(),
-    auth: new AuthService('http://localhost:8080/api')
-}
+  address: new AddressResource(),
+  dough: new DoughResource(),
+  ingredient: new IngredientResource(),
+  misc: new MiscResource(),
+  order: new OrderResource(),
+  sauce: new SauceResource(),
+  size: new SizeResource(),
+  auth: new AuthService("http://localhost:8080/api"),
+};

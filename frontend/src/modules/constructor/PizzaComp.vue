@@ -7,30 +7,34 @@
       :value="modelValue"
       @input="setName"
     />
-    <AppDrop @drop="
+    <AppDrop
+      @drop="
         emits('ing_add', {
           id: $event.id,
           ingredient: $event.ingredient,
           name: $event.name,
           price: $event.price,
         })
-      ">
+      "
+    >
       <div class="content__constructor">
         <div
           class="pizza"
           :class="`pizza--foundation--${dough.doughSize}-${sauce.sauce}`"
         >
           <div class="pizza__wrapper">
-            <div
-            v-for="(quantity, ingredient) in pizzaIngredients"
-              :key="ingredient"
-              class="pizza__filling"
-              :class="[
-                `pizza__filling--${ingredient}`,
-                quantity === 2 && 'pizza__filling--second',
-                quantity === 3 && 'pizza__filling--third',
-              ]"
-            />
+            <transition-group name="ing" mode="out-in">
+              <div
+                v-for="(quantity, ingredient) in pizzaIngredients"
+                :key="ingredient.id * Math.random()"
+                class="pizza__filling"
+                :class="[
+                  `pizza__filling--${ingredient}`,
+                  quantity === 2 && 'pizza__filling--second',
+                  quantity === 3 && 'pizza__filling--third',
+                ]"
+              />
+            </transition-group>
           </div>
         </div>
       </div>
@@ -80,9 +84,9 @@ const props = defineProps({
 
 const emits = defineEmits(["ing_add", "update:modelValue", "addPizza"]);
 
-const pizzaIngredients = computed(() => {  
+const pizzaIngredients = computed(() => {
   return props.ingredients.reduce((result, ingredientt) => {
-    const { ingredient, quantity } = ingredientt;    
+    const { ingredient, quantity } = ingredientt;
     if (quantity > 0) {
       result[ingredient] = quantity;
     }
@@ -90,11 +94,21 @@ const pizzaIngredients = computed(() => {
   }, {});
 });
 
-const setName = (name) => {  
+const setName = (name) => {
   emits("update:modelValue", name);
 };
 </script>
 
 <style lang="scss" scoped>
 @import "@/assets/scss/app.scss";
+
+.ing-enter-active,
+.ing-leave-active {
+  transition: opacity 1s ease;
+}
+
+.ing-enter-from,
+.ing-leave-to {
+  opacity: 0;
+}
 </style>

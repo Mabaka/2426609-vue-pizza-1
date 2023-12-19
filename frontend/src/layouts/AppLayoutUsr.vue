@@ -1,10 +1,10 @@
 <template>
-    <div class="appLayout">
-      <AppHeader></AppHeader>
-      <AppSB></AppSB>
-      <slot />
-    </div>
-  </template>
+  <div class="appLayout">
+    <AppHeader></AppHeader>
+    <AppSB></AppSB>
+    <slot />
+  </div>
+</template>
 
 <script setup>
 import AppHeader from "./AppHeader.vue";

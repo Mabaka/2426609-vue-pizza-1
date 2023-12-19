@@ -1,7 +1,7 @@
 <template>
-    <div class="appLayout">
-        <slot />
-    </div>
+  <div class="appLayout">
+    <slot />
+  </div>
 </template>
 
 <style lang="scss" scoped>
