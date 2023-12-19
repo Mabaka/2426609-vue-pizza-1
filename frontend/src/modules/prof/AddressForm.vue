@@ -7,7 +7,7 @@
         @submit.prevent="emits('save')"
       >
         <div class="address-form__header">
-          <b>{{ getIdAndName(addressParams.id, addressParams.name) }}</b>
+          <b>{{ getIdAndName(addressParams?.id || '', addressParams?.name || '' ) }}</b>
         </div>
   
         <div class="address-form__wrapper">
@@ -107,6 +107,8 @@
     },
   });
   const emits = defineEmits(["save", "delete", "setAddressInfo"]);
+
+
   const getIdAndName = (id, name) => {
     return `Адрес №${id}. ${name}`;
   };

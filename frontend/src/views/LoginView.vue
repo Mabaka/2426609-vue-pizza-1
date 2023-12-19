@@ -10,14 +10,14 @@
       <div class="sign-form__input">
         <label class="input">
           <span>E-mail</span>
-          <input v-model="user.email" type="email" name="email" placeholder="example@mail.ru" />
+          <input v-model="user.email" type="email" name="email" placeholder="example@mail.ru" required />
         </label>
       </div>
 
       <div class="sign-form__input">
         <label class="input">
           <span>Пароль</span>
-          <input v-model="user.password" type="password" name="pass" placeholder="***********" />
+          <input v-model="user.password" type="password" name="pass" placeholder="***********" required />
         </label>
       </div>
       <button type="submit" class="button">Авторизоваться</button>
@@ -27,11 +27,11 @@
 
 <script setup>
 import { useRouter } from "vue-router";
-import { ProfileStore } from "../states_store/";
 import { SectionTitle } from "../common/components";
+import { AuthStore } from "../states_store/";
 import { reactive } from "vue";
 
-const profile_store = ProfileStore();
+const auth_store = AuthStore();
 const router = useRouter();
 
 const user = reactive({
@@ -39,13 +39,10 @@ const user = reactive({
   password: "",
 });
 
-const login = () => {
-  try {
-    profile_store.login(user);
-    router.push("/user");
-  } catch (error) {
-    alert(error);
-  }
+const login = async () => {
+  await auth_store.login(user);
+  await auth_store.whoAmI();
+  router.push('/user/profile');
 };
 </script>
 

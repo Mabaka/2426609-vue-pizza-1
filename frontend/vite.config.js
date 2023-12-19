@@ -2,6 +2,7 @@ import { fileURLToPath, URL } from 'url'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import mkcert from 'vite-plugin-mkcert'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,11 +16,12 @@ export default defineConfig({
     },
   },
   server: {
-    host: true,
+    host: true,    
     port: 8080,
     proxy: {
       "/api": {
         target: "https://pizza.vue.pages.academy/",
+        secure: false,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },

@@ -1,69 +1,94 @@
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
+import { getPizzasId } from "@/common/helpers";
+import resources from "../services/resources";
 
 export const ProfileStore = defineStore('profile', {
 	state: () => ({
-		 
-			id: 0,
-			name: "",
-			email: "",
-			avatar: "",
-			phone: "",
-			addresses:[],
-            orders:[],
+
+		addresses: [],
+		orders: [],
 	}),
 	getters: {
-		getAddresses: (state)=> {
+		getAddresses: (state) => {
 			return state.addresses;
 		},
-		getOrders: (state)=> {
+		getOrders: (state) => {
 			return state.orders;
-		},
-		getName: (state)=> {
-			return state.name;
-		},
-		getEmail: (state)=> {
-			return state.email;
-		},
-		getAvatar: (state)=> {
-			return state.avatar;
-		},
-		getPhone: (state)=> {
-			return state.phone;
 		}
 	},
 	actions: {
-        login(email, password) {			
-			this.email = email;
+		async order_add(order) {
+			const order_p = {userId:order.userId,pizzas:order.pizzas,misc:order.misc,address:order.address,phone:order.phone};			
+			const res = await resources.order.addOrder(order_p);
+			if (res.__state !== "success") {
+				console.log(res);
+				return;
+			} else {
+				let newObject = {
+					id: res.data.id,
+					userId: res.data.userId,
+					addressId: res.data.addressId,
+					orderMisc: order.misc,
+					orderPizzas: getPizzasId(order.pizzas),
+					orderAddress: order.address,
+				};
+				this.orders.push(newObject);
+			}
 		},
-		logout() {			
-			this.id = 0;
-			this.name = "";
-			this.email = "";
-			this.avatar = "";
-			this.phone = "";
-			this.orders = [];
-			this.addresses = [];
-		},
-		order_add(order){
-			this.orders.push(order);
-		},
-		order_drop(id) {
-			this.orders = this.orders.filter((order) => order.id !== id);
+		async order_drop(id) {
+			const res = await resources.order.removeOrder(id);
+			if (res.__state !== "success") {
+				return;
+			} else {
+				this.orders = this.orders.filter((order) => order.id !== id);
+			}
 		},
 		orders_clear() {
 			this.orders = [];
 		},
-		address_add(address) {
-			this.addresses.push(address);
+		async address_add(address) {			
+			const res = await resources.address.addAddress(address);		
+			if (res.__state !== "success") {
+				return;
+			} else {
+				const data = res.data;
+				this.addresses.push(data);
+			}
 		},
-		address_drop(id) {
-			this.addresses = this.addresses.filter((address) => address.id !== id);
+		async address_drop(id) {
+			const res = await resources.address.removeAddress(id);
+			if (res.__state !== "success") {
+				return;
+			} else {
+				this.addresses = this.addresses.filter((address) => address.id !== id);
+			}
 		},
-		address_edit(address_created) {
-			const index = this.addresses.findIndex(
-			  (address) => address.id === address_created.id
-			);
-			this.addresses.splice(index, 1, address_created);
-		  },
-    }
+		async address_edit(address_created) {
+			const res = await resources.address.updateAddress(address_created);
+			if (res.__state !== "success") {
+				return;
+			} else {
+				const index = this.addresses.findIndex(
+					(address) => address.id === address_created.id
+				);
+				this.addresses.splice(index, 1, address_created);
+			}
+		},
+		addresses_set(addresses) {
+			this.addresses = addresses;
+		},
+
+		orders_set(orders) {
+			this.orders = orders;			
+		},
+		async adress_delete(id) {
+			const res = await resources.address.removeAddress(id);
+			if (res.__state !== "success") {
+			  return;
+			} else {
+			  this.addresses = this.addresses.filter((address) => address.id !== id);
+			}
+		  }
+		
+	}
 })
