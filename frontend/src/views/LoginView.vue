@@ -40,9 +40,13 @@ const user = reactive({
 });
 
 const login = async () => {
-  await auth_store.login(user);
-  await auth_store.whoAmI();
-  router.push('/user/profile');
+  const res = await auth_store.login(user);
+  if (res==='success'){
+    await auth_store.whoAmI();
+    router.push('/user/profile');
+  }else{
+    alert(res);
+  }
 };
 </script>
 
